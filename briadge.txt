@@ -1,0 +1,23 @@
+JavaScript 调用 Native
+	拦截 URL SCHEME
+		支持 iOS6
+		url 长度的隐患
+		耗时较长
+	注入 API
+		Android
+			4.2 前：addJavascriptInterface
+			4.2后：JavascriptInterface
+			prompt, 监听onJsPrompt
+		iOS
+			context
+			userContent
+Native 调用 JavaScript
+	ios
+		stringByEvaluatingJavaScriptFromString
+		evaluateJavaScript
+	Android
+		loadUrl，获取不到执行结果
+		evaluateJavascript
+引用
+	由 Native 端进行注入
+	JavaScript 端引用

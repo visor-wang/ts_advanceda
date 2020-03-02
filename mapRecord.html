@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #chart-panel {
+            width: 856px;
+            height: 640px;
+            background-color: #003077;
+            margin: 110px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart-panel" style="width: 600px;height:400px;"></div>
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
+<!-- <script src="./china.js"></script> -->
+<script src="./chinaCity.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var mapBoxEchart = echarts.init(document.getElementById('chart-panel'));
+    mapBoxEchart.on('click', function (params) {
+        // debugger
+    });
+
+    // 指定相关的配置项和数据
+    var mapBoxOption = {
+        visualMap: {
+            show: true,
+            type: 'piecewise',
+            pieces: [
+                { min: 100, max: 1000, },
+                { min: 1, max: 100 },
+                { min: 0, max: 0 },
+            ],
+            showLabel: true,
+            right: '15%',
+            bottom: '20%',
+            text: ['确诊病例'], // 文本，默认为数值文本
+            calculable: true,
+            inRange: {
+                // color: ['#3B5077', '#031525'] // 蓝黑
+                // color: ['#ffc0cb', '#800080'] // 红紫
+                // color: ['#3C3B3F', '#605C3C'] // 黑绿
+                // color: ['#0f0c29', '#302b63', '#24243e'] // 黑紫黑
+                // color: ['#23074d', '#cc5333'] // 紫红
+                color: ['#F6CED8', '#D90505']//蓝红
+                // color: ['#00467F', '#A5CC82'] // 蓝绿
+                // color: ['white','#1488CC', '#2B32B2'] // 浅蓝
+                // color: ['#00467F', '#A5CC82'] // 蓝绿
+                // color: ['#00467F', '#A5CC82'] // 蓝绿
+                // color: ['#00467F', '#A5CC82'] // 蓝绿
+                // color: ['#00467F', '#A5CC82'] // 蓝绿
+
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}<br/>{c} (元/平方公里)'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {
+                    readOnly: false
+                },
+                restore: {},
+                saveAsImage: {
+                    pixelRatio: 4
+                }
+            }
+        },
+        series: [{
+            type: 'map',
+            mapType: 'china',
+            aspectScale: 0.75,
+            zoom: 1.2,//当前视角的缩放比例。
+
+            label: {
+                normal: {
+                    show: false, //显示省份标签
+                    textStyle: {
+                        color: "blue"
+                    } //省份标签字体颜色
+                },
+                emphasis: { //对应的鼠标悬浮效果
+                    show: true,
+                    textStyle: {
+                        color: "#800080"
+                    }
+                }
+            },
+            formatter: '{b}<br/>{c} (元/平方公里)',
+            itemStyle: {
+                normal: {
+                    borderWidth: .1, //区域边框宽度
+                    borderColor: '#009fe8', //区域边框颜色
+                    areaColor: "#ffefd5", //区域颜色
+                },
+                emphasis: {//鼠标滑过地图高亮的相关设置
+                    borderWidth: .1,
+                    borderColor: '#4b0082',
+                    areaColor: "#ffdead",
+                }
+            },
+            data: [
+                { name: '西安市', value: 100 },
+                { name: '安康市', value: 100 },
+                { name: '汉中市', value: 100 },
+                { name: '商洛市', value: 100 },
+                { name: '渭南市', value: 100 },
+                { name: '宝鸡市', value: 100 },
+                { name: '咸阳市', value: 100 },
+                { name: '延安市', value: 100 },
+                { name: '成都市', value: 100 },
+                { name: '重庆市', value: 100 },
+                { name: '南京市', value: 100 },
+                { name: '北海市', value: 100 },
+                { name: '北京市', value: 100 },
+                { name: '济南市', value: 100 },
+                { name: '青岛市', value: 100 },
+                { name: '长沙市', value: 100 },
+                { name: '南京市', value: 100 },
+                { name: '天津市', value: 100 },
+                { name: '太原市', value: 100 },
+                { name: '厦门市', value: 100 },
+                { name: '秦皇岛市', value: 100 }
+            ]
+        }]
+
+    }
+    // 使用制定的配置项和数据显示图表
+    mapBoxEchart.setOption(mapBoxOption);
+    // echart图表自适应
+    window.addEventListener("resize", function () {
+        mapBoxEchart.resize();
+    });
+
+    // var mapBoxOption = {
+        // inRange: {
+        //     // color: ['#3B5077', '#031525'] // 蓝黑
+        //     // color: ['#ffc0cb', '#800080'] // 红紫
+        //     // color: ['#3C3B3F', '#605C3C'] // 黑绿
+        //     // color: ['#0f0c29', '#302b63', '#24243e'] // 黑紫黑
+        //     // color: ['#23074d', '#cc5333'] // 紫红
+        //     color:['#F6CED8','#D90505']//蓝红
+        //     // color: ['#00467F', '#A5CC82'] // 蓝绿
+        //     // color: ['white','#1488CC', '#2B32B2'] // 浅蓝
+        //     // color: ['#00467F', '#A5CC82'] // 蓝绿
+        //     // color: ['#00467F', '#A5CC82'] // 蓝绿
+        //     // color: ['#00467F', '#A5CC82'] // 蓝绿
+        //     // color: ['#00467F', '#A5CC82'] // 蓝绿
+
+        //     },
+        //     tooltip: {
+        //     trigger: 'item',
+        //     formatter: '{b}<br/>{c} (元/平方公里)'
+        // },
+        // series: [{
+        //     type: 'map',
+        //     mapType: 'china',
+
+        //     data:[
+        //         {name: '西安市', value: 39, id: 6101},
+        //     ],
+        //     label: {
+        //         normal: {
+        //             show: false, //显示省份标签
+        //             textStyle: {
+        //                 color: "blue"
+        //             } //省份标签字体颜色
+        //         },
+        //         emphasis: { //对应的鼠标悬浮效果
+        //             show: true,
+        //             textStyle: {
+        //                 color: "#800080"
+        //             }
+        //         }
+        //     },
+        //     aspectScale: 0.75,//这个参数用于 scale 地图的长宽比。最终的 aspect 的计算方式是：geoBoundingRect.width / geoBoundingRect.height * aspectScale
+        //     zoom: 1.2,//当前视角的缩放比例。
+        //     itemStyle: {
+        //         normal: {
+        //             borderWidth: .1, //区域边框宽度
+        //             borderColor: '#009fe8', //区域边框颜色
+        //             areaColor: "#ffefd5", //区域颜色
+        //         },
+        //         emphasis: {//鼠标滑过地图高亮的相关设置
+        //             borderWidth: .1,
+        //             borderColor: '#4b0082',
+        //             areaColor: "#ffdead",
+        //         }
+        //     }
+        // }]
+    // };
+
+</script>
+
+</html>
